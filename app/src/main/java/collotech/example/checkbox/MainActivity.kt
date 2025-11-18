@@ -1,6 +1,7 @@
 package collotech.example.checkbox
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.activity.enableEdgeToEdge
@@ -15,7 +16,8 @@ import android.os.Looper
 import android.view.View
 import android.widget.SeekBar
 import android.widget.TextView
-import com.google.android.material.slider.Slider
+import android.widget.ImageView
+
 
 
 
@@ -35,7 +37,9 @@ class MainActivity : AppCompatActivity() {
 
         val Seekbar = findViewById<SeekBar>(R.id.seekbar)
 
-        val slider = findViewById<Slider>(R.id.slider)
+        val navigation = findViewById<ImageView>(R.id.arrow)
+
+
 
 
 
@@ -79,16 +83,9 @@ class MainActivity : AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
 
-        // Slider is the modern design of seekbar
-        slider.addOnSliderTouchListener(object : Slider.OnSliderTouchListener {
-            override fun onStartTrackingTouch(slider: Slider) {
-                // User starts sliding (optional)
-            }
-
-            override fun onStopTrackingTouch(slider: Slider) {
-                Toast.makeText(this@MainActivity, "Final value: ${slider.value.toInt()}", Toast.LENGTH_SHORT).show()
-            }
-        })
+       navigation.setOnClickListener {
+         startActivity(Intent(this, MainActivity2::class.java))
+       }
 
 
 

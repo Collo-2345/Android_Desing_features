@@ -13,8 +13,12 @@ import android.widget.ProgressBar
 import android.os.Handler
 import android.os.Looper
 import android.view.View
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import android.widget.SeekBar
+import android.widget.TextView
+import com.google.android.material.slider.Slider
+
+
+
 
 class MainActivity : AppCompatActivity() {
     @SuppressLint("UseSwitchCompatOrMaterialCode")
@@ -29,6 +33,12 @@ class MainActivity : AppCompatActivity() {
 
         val listview = findViewById<ListView>(R.id.listview)
 
+        val Seekbar = findViewById<SeekBar>(R.id.seekbar)
+
+        val slider = findViewById<Slider>(R.id.slider)
+
+
+
 
         // Display items in a spinner
         val countries = arrayOf("Kenya","Tanzania","USA","Cameroon","Nigeria","Ghana","South Africa")
@@ -39,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
         // Display items in a listview
 
-        val food  = arrayOf("Mango","PineApple","Lemmon","Pawpaw","Apple","Orange","Banana","Guava","Watermelon","Strawberry")
+        val food  = arrayOf("Mango","PineApple")
         listview.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, food)
 
         // progress bar backend
@@ -58,7 +68,27 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Wifi is OFF", Toast.LENGTH_SHORT).show()
         }
 
+        val txtValue = findViewById<TextView>(R.id.txtValue)
 
+        Seekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                txtValue.text = "Progress: $progress"
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
+
+        // Slider is the modern design of seekbar
+        slider.addOnSliderTouchListener(object : Slider.OnSliderTouchListener {
+            override fun onStartTrackingTouch(slider: Slider) {
+                // User starts sliding (optional)
+            }
+
+            override fun onStopTrackingTouch(slider: Slider) {
+                Toast.makeText(this@MainActivity, "Final value: ${slider.value.toInt()}", Toast.LENGTH_SHORT).show()
+            }
+        })
 
 
 
